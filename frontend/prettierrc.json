@@ -1,0 +1,9 @@
+{
+  "semi": true,
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "trailingcomma": "ea5",
+  "printwidth": 80,
+  "tabwidth": 2,
+  "endofline": "auto"
+}
