@@ -1,4 +1,8 @@
 :root {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -12,7 +16,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+}
 a {
   font-weight: 500;
   color: #646cff;

@@ -134,3 +134,4 @@
 /Users/twoscoops/Documents/BYU/Winter25/IS413/RiderProjects/Bookstore/backend/Bookstore.API/obj/Debug/net8.0/staticwebassets.build.endpoints.json
 /Users/twoscoops/Documents/BYU/Winter25/IS413/RiderProjects/Bookstore/backend/Bookstore.API/obj/Debug/net8.0/staticwebassets/msbuild.Bookstore.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
 /Users/twoscoops/Documents/BYU/Winter25/IS413/RiderProjects/Bookstore/backend/Bookstore.API/obj/Debug/net8.0/Bookstor.9B85A9C8.Up2Date
+/Users/twoscoops/Documents/BYU/Winter25/IS413/RiderProjects/Bookstore/backend/Bookstore.API/obj/Debug/net8.0/Bookstore.API.sourcelink.json
