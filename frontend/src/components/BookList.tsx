@@ -87,7 +87,7 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                   <strong>Price:</strong> ${b.price.toFixed(2)}
                 </li>
               </ul>
-
+              {/* Here I need to send relevant info for the book to help add the correct information to cart (title, id, price) */}
               <button
                 className="btn btn-success"
                 onClick={() =>

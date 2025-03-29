@@ -57,6 +57,7 @@ public class BookstoreController : ControllerBase
         return Ok(combinedObj);
     }
 
+    // Enables access to book genres to enable user to filter on each one.
     [HttpGet("GetBookCategories")]
     public IActionResult GetBookCategories()
     {

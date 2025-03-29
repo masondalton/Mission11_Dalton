@@ -8,6 +8,7 @@ function BookPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   return (
+    // This is main page for now. Displays the cart summary as user browses and then uses bootstrap to display category filter and list of all books
     <div className="container mt-4">
       <CartSummary />
       <div className="row">

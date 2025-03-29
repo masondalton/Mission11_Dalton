@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CategoryFilter.css";
 
+// Manage the use of category filters by get the selected categories from database
 function CategoryFilter({
   selectedCategories,
   setSelectedCategories,
@@ -13,6 +14,8 @@ function CategoryFilter({
   useEffect(() => {
     const fetchCategories = async () => {
       try {
+        // Attempt to get the list of categories, unique - no duplicates.
+        // Then I pass the retrieved categories to a string list via set categories function
         const response = await fetch(
           "https://localhost:5000/api/Bookstore/GetBookCategories"
         );
@@ -28,6 +31,7 @@ function CategoryFilter({
     fetchCategories();
   }, []);
 
+  // Pulled out of return for clarity. Take the cateogory list and fixes value based of user preferences for book genre
   function handleCheckBoxChange({ target }: { target: HTMLInputElement }) {
     const updatedCategories = selectedCategories.includes(target.value)
       ? selectedCategories.filter((x) => x !== target.value)
@@ -38,7 +42,8 @@ function CategoryFilter({
 
   return (
     <div className="category-filter">
-      <h5>Project Types</h5>
+      <h5>Book Genres</h5>
+      {/* Filters by book genre/category */}
       <div className="category-list">
         {categories.map((cats) => (
           <div key={cats} className="category-item">

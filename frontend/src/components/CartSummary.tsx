@@ -8,6 +8,7 @@ function CartSummary() {
   const totalQuant = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
+    // Styling for the cart summary icon at the top right of the page
     <div
       style={{
         position: "fixed",
@@ -24,6 +25,7 @@ function CartSummary() {
       }}
       onClick={() => navigate("/cart")}
     >
+      {/* Some basic presentation of the data in the cart */}
       🛒
       <strong>${totalAmount.toFixed(2)}&nbsp; </strong>
       Books: {totalQuant}

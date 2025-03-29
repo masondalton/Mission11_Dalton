@@ -10,6 +10,7 @@ function AddToCartPage() {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState<number>(0);
 
+  // Create new instance of CartItem and calcualates the subtotal for display within Cartpage
   const handleAddTocart = () => {
     const newItem: CartItem = {
       bookId: Number(bookId),

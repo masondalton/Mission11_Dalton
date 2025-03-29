@@ -1,3 +1,5 @@
+/* Styles for the left view of categories filter */
+
 .category-filter {
   display: flex;
   flex-direction: column;

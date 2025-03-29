@@ -9,6 +9,9 @@ function CartPage() {
     .reduce((sum, item: CartItem) => sum + item.subTotal, 0)
     .toFixed(2);
 
+  // Added basic styling for the cart page to make it readable by bootstrap
+  // Calcualted total based on subtotal that inclused quantity*price
+  // Calls cart functions to remove, clear cart
   return (
     <div className="shadow p-5">
       <h2>Cart</h2>
