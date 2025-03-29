@@ -17,14 +17,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((c) => c.bookId === item.bookId);
       const updatedCart = prevCart.map((c) =>
-        c.bookId === item.bookId ? { ...c, price: c.price + item.price } : c
+        c.bookId === item.bookId
+          ? {
+              ...c,
+              quantity: c.quantity + item.quantity,
+              subTotal: c.subTotal + item.subTotal,
+            }
+          : c
       );
       return existingItem ? updatedCart : [...prevCart, item];
     });
   };
 
   const removeFromCart = (bookId: number) => {
-    setCart((prevCart) => prevCart.filter((c) => c.bookId === bookId));
+    setCart((prevCart) => prevCart.filter((c) => c.bookId !== bookId));
   };
 
   const clearCart = () => {

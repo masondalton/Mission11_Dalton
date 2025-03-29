@@ -8,14 +8,15 @@ function AddToCartPage() {
   const navigate = useNavigate();
   const { title, bookId, price } = useParams();
   const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState<number>(0);
 
   const handleAddTocart = () => {
     const newItem: CartItem = {
       bookId: Number(bookId),
       title: title || "No Book found",
-      price: Number(price) || 0,
       quantity,
+      price: Number(price) || 0,
+      subTotal: Number(price) * quantity,
     };
     addToCart(newItem);
     navigate("/cart");
