@@ -18,9 +18,14 @@ public class BookstoreController : ControllerBase
 
     // Main get request for the list of all the books. Pass back total number for pagination calculations
     [HttpGet("GetBooks")]
-    public IActionResult GetBooks(int pageSize = 5, int pageNum = 1, string sortBy = "default", bool descending = false)
+    public IActionResult GetBooks(int pageSize = 5, int pageNum = 1, string sortBy = "default", bool descending = false, [FromQuery] List<string>? bookCats = null)
     {
         var booksQuery = _bookContext.Books.AsQueryable();
+
+        if (bookCats != null && bookCats.Any())
+        {
+            booksQuery = booksQuery.Where(b => bookCats.Contains(b.Category));
+        }
     
         // Apply sorting
         switch (sortBy.ToLower())
@@ -36,13 +41,12 @@ public class BookstoreController : ControllerBase
                 booksQuery = booksQuery.OrderBy(x => x.BookId);
                 break;
         }
-    
+        var totalNumBooks = booksQuery.Count();
+        
         var books = booksQuery
             .Skip((pageNum-1) * pageSize)
             .Take(pageSize)
             .ToList();
-    
-        var totalNumBooks = _bookContext.Books.Count();
 
         var combinedObj = new
         {
@@ -51,6 +55,17 @@ public class BookstoreController : ControllerBase
         };
     
         return Ok(combinedObj);
+    }
+
+    [HttpGet("GetBookCategories")]
+    public IActionResult GetBookCategories()
+    {
+        var bookCategories = _bookContext.Books
+            .Select(b => b.Category)
+            .Distinct()
+            .ToList();
+        
+        return Ok(bookCategories);
     }
     
 }

@@ -25,7 +25,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(x => x.WithOrigins("http://localhost:3000")
     .AllowAnyMethod()
-    .AllowAnyHeader());
+    .AllowAnyHeader()
+    .AllowCredentials());
 
 app.UseHttpsRedirection();
 
