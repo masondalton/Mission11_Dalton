@@ -69,7 +69,7 @@ public class BookstoreController : ControllerBase
         return Ok(bookCategories);
     }
 
-    [HttpPost("Add")]
+    [HttpPost("AddBook")]
     public IActionResult AddBook([FromBody] Book book)
     {
         _bookContext.Books.Add(book);
@@ -108,7 +108,7 @@ public class BookstoreController : ControllerBase
         }
         _bookContext.Books.Remove(existingBook);
         _bookContext.SaveChanges();
-        return NoContent();
+        return Ok(new { message = "Book deleted successfully" });
     }
     
 }
