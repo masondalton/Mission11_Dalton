@@ -68,7 +68,47 @@ public class BookstoreController : ControllerBase
         
         return Ok(bookCategories);
     }
-    
-    public IActionResult
+
+    [HttpPost("Add")]
+    public IActionResult AddBook([FromBody] Book book)
+    {
+        _bookContext.Books.Add(book);
+        _bookContext.SaveChanges();
+        return Ok(book);
+    }
+
+    [HttpPut("UpdateBook/{bookId}")]
+
+    public IActionResult UpdateBook(int bookId, [FromBody] Book book)
+    {
+        var existingBook = _bookContext.Books.Find(bookId);
+        
+        existingBook.Title = book.Title;
+        existingBook.Author = book.Author;
+        existingBook.Publisher = book.Publisher;
+        existingBook.ISBN = book.ISBN;
+        existingBook.Classification = book.Classification;
+        existingBook.Category = book.Category;
+        existingBook.PageCount = book.PageCount;
+        existingBook.Price = book.Price;
+
+        _bookContext.Books.Update(existingBook);
+        _bookContext.SaveChanges();
+        return Ok(existingBook);
+    }
+
+    [HttpDelete("DeleteBook/{bookId}")]
+    public IActionResult DeleteBook(int bookId)
+    {
+        var existingBook = _bookContext.Books.Find(bookId);
+
+        if (existingBook == null)
+        {
+            return NotFound(new {message = "Book not found"});
+        }
+        _bookContext.Books.Remove(existingBook);
+        _bookContext.SaveChanges();
+        return NoContent();
+    }
     
 }
