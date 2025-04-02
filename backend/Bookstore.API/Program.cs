@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
     policy =>
     {
         policy
-            .SetIsOriginAllowed(_ => true) // Allow any origin, with caution
+            .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
