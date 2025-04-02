@@ -14,16 +14,15 @@ builder.Services.AddDbContext<BookstoreContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("BookstoreConnection")));
 
 builder.Services.AddCors(options =>
-    options.AddPolicy(
-        "AllowReactApp",
-    policy =>
-    {
-        policy
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
-    }));
+    options.AddPolicy("AllowReactApp",
+        policy =>
+        {
+            policy.WithOrigins("https://agreeable-flower-045a83b1e.6.azurestaticapps.net")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+        }));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
