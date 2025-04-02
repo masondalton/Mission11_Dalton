@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Book } from "../types/Book";
-import { fetchBooks } from "../api/BooksAPI";
+import { deleteBook, fetchBooks } from "../api/BooksAPI";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import NewBookForm from "../components/NewBookForm";
+import EditBookForm from "../components/EditBookForm";
 
 const AdminBookPage = () => {
+  const selectedCategories: string[] = [];
   const [books, setBooks] = useState<Book[]>([]);
   const [pageSize, setPageSize] = useState<number>(5);
   const [pageNum, setPageNum] = useState<number>(1);
@@ -14,11 +17,20 @@ const AdminBookPage = () => {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editingBook, setEditingBook] = useState<Book | null>(null);
 
   useEffect(() => {
     const loadBooks = async () => {
+      setLoading(true);
       try {
-        const data = await fetchBooks(pageSize, pageNum, [], "", false);
+        const data = await fetchBooks(
+          pageSize,
+          pageNum,
+          selectedCategories,
+          sortBy,
+          descending
+        );
         setBooks(data.bookList);
         setTotalPages(Math.ceil(data.numBooks / pageSize));
       } catch (err) {
@@ -29,7 +41,20 @@ const AdminBookPage = () => {
     };
 
     loadBooks();
-  }, []);
+  }, [pageSize, pageNum, sortBy, descending]);
+
+  const handleDelete = async (bookId: number) => {
+    const confirmDelete = window.confirm(`Delete this book? (${bookId})`);
+    if (!confirmDelete) return;
+
+    try {
+      await deleteBook(bookId);
+      setBooks(books.filter((b) => b.bookId !== bookId));
+    } catch (err) {
+      alert("Failed to delete book. Please try again");
+      throw err;
+    }
+  };
 
   if (loading) return <p>Loading books...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
@@ -37,6 +62,47 @@ const AdminBookPage = () => {
   return (
     <div>
       <h1>Admin</h1>
+      {!showForm && (
+        <button
+          className="btn btn-success mb-3"
+          onClick={() => setShowForm(true)}
+        >
+          Add Book
+        </button>
+      )}
+      {showForm && (
+        <NewBookForm
+          onSuccess={() => {
+            setShowForm(false);
+            fetchBooks(
+              pageSize,
+              pageNum,
+              selectedCategories,
+              sortBy,
+              descending
+            ).then((data) => setBooks(data.bookList));
+          }}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
+
+      {editingBook && (
+        <EditBookForm
+          book={editingBook}
+          onSuccess={() => {
+            setEditingBook(null);
+            fetchBooks(
+              pageSize,
+              pageNum,
+              selectedCategories,
+              sortBy,
+              descending
+            ).then((data) => setBooks(data.bookList));
+          }}
+          onCancel={() => setEditingBook(null)}
+        />
+      )}
+
       <table className="table table-bordered table-striped">
         <thead className="table-dark">
           <tr>
@@ -63,16 +129,16 @@ const AdminBookPage = () => {
               <td>{b.classification}</td>
               <td>{b.category}</td>
               <td>{b.pageCount}</td>
-              <td>{b.price}</td>
+              <td>${b.price}</td>
               <td>
                 <button
-                  onClick={() => console.log(`Edit book ${b.bookId}`)}
+                  onClick={() => setEditingBook(b)}
                   className="btn btn-primary btn-sm w-100 mb-1"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => console.log(`Delete book ${b.bookId}`)}
+                  onClick={() => handleDelete(b.bookId)}
                   className="btn btn-danger btn-sm w-100"
                 >
                   Delete
