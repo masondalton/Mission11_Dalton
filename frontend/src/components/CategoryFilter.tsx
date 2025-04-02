@@ -17,7 +17,7 @@ function CategoryFilter({
         // Attempt to get the list of categories, unique - no duplicates.
         // Then I pass the retrieved categories to a string list via set categories function
         const response = await fetch(
-          "https://localhost:5000/api/Bookstore/GetBookCategories"
+          "https://bookstoredalton-backend.azurewebsites.net/api/Bookstore/GetBookCategories"
         );
         const data = await response.json();
 
