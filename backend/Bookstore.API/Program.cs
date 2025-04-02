@@ -20,7 +20,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .AllowCredentials();
     }));
 var app = builder.Build();
 
@@ -31,10 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(x => x.WithOrigins("http://localhost:3000")
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials());
+app.UseCors("AllowReactApp");
 
 app.UseHttpsRedirection();
 
