@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "undefined/subscriptions/69f532db-81a9-4798-bb0e-dd8be14cdf50/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/BookstoreDalton-Backend",
+  "appService.deploySubpath": "backend/Bookstore.API/publish"
+}
